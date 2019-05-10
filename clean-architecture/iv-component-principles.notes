@@ -1,0 +1,84 @@
+== IV Component Principles ==
+
+*SOLID* -> Bricks into Walls
+*Component Principles* -> Walls into Buildings
+
+12. Components 
+
+- Unit of Deployments 
+    - Can group togheter in the same excecutable
+    - Or deployed independently (dll, jar, war)
+    - Well design components are independently deployeable 
+- History of components 
+    - Reusability
+    - Starting add library code to the same source file 
+        -> to much time building
+        -> put the library in a different (and specific) part of the memory
+        -> realoction and creation of the linkers
+    * Programs will grow to fill all available compile and link time * - Murphy
+        -> But this phrase was wrong and in the 90's we see the building time getting faster
+            - ActiveX 
+
+13. Component Cohesion 
+    - Principles
+        - REP -> The Reuse/Release Equivalent Principle 
+            - * The granule of reuse is the granule of release *
+            - Maven, RVM, etc. make easier to reause code
+            - Release numbers
+            - Group togheter == Release togheter
+            - Weak Principle
+        -  CCP -> The Common Clousure Principle
+            - * Gather into components those classes that changes for the same reasons and at the same times *
+            - * Separate into different components that classe that changes at different times and for different reasons *
+            - Kind of * Single Responsibility Principle * for components
+            - Kind of follow the * Open Clousure Principle *
+        - CRP -> The Common Reuse Principle
+            - * Dont force users of a component to depend on thing they dont need *
+            - Which classes should not be togheter
+            - Relates to ISP - Interface Segratation Principle
+    - The tension diagram for Component Cohesion
+            *REP* (reuses) --------------------------- to many unneeded releases ----------------------- *CCP* (maintenance)
+            |                                                                                              |       
+            |                                                                                              |
+            |                                                                                              |
+            --- to many components change --- *CRP* (split to avoid unneeded releases) --- hard to reuse ---
+        - REP and CCP -> Inclusive -> Larger components
+        - CRP -> Exclusive -> Smaller components
+        - REP + CRP -> Too many components affected by a simple change 
+        - CCP + REP -> Too many releases
+        - Start to the project the ability to developer is more important than reuse
+
+14. Component Coupling
+    - Tension between develop-ability and logical design
+    - The Acyclic Dependencies Principle
+        - *Allow no cicles in the component dependency graph *
+        - Avoid morning after syndrome 
+        - Weekly deploy 
+        - Eliminating cycle dependency
+            - cycle == thing starts to depend on thing that shouldn't 
+            - breaking the cycle 
+                - dependency inversion principle 
+                - or create a new component 
+        - Top down design
+            - is not a good idea
+            - the design is comming when the project grows 
+            - if you try to create components before write any classe you will fail 
+    - The stable dependency principle
+        - Stable x Independent 
+            -> A lot of components depends on x No component depends on you 
+            - stable => hard to change 
+        - Not all components should be stable 
+            - Max of stability => almost no changes
+            - Flexible Components should not be Stable 
+            - Abstract components should have nothing but Interfaces
+        - The Stable Abstract Principle
+            - * A component should be Abstract as is its stable *
+            - Where to put the high level policy -> OCP
+            - More instable -> More concrete classe
+        - The Zone of Pain
+            - Too stable and too concrete -> almost can't change 
+        - The Zone of Uselessness
+            - Too instable and to Abstract -> useless 
+        - Main Sequence
+            - Start instable and concrete -> going to stable and Abstract
+        
