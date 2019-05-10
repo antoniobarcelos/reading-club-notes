@@ -1,0 +1,56 @@
+=========================================
+SOLID principles
+=========================================
+Single responsibility principle
+Open-closed principle
+Liskov substitution principle
+Interface segregation principle
+Dependency Inversion principle
+
+=========================================
+Single responsibility principle
+=========================================
+- it doesn't mean every module should do just one thing (other principle says that about function)
+- A module should be responsible to one, and only one, stakeholder/user/actor
+Symptoms of misusing SRP: 
+- Accidental duplication: 2 functions that are used by 2 different actors end up sharing same code because careful devs didn't want to duplicate code. So a tweak in that logic may affect the usecases of the other stakeholder
+- Merges: 2 different teams working on same code can lead to merge conflicts
+Solutions:
+- Separate the data from the functions. Have providers that hold the logic and have access to the data and don't know about each other. 
+- Suggests to use Facade that delegates to providers, so it's easy for devs to avoid instansiating multiple providers
+
+=========================================
+Open-closed principle
+=========================================
+- A software artifact should be open for extension but closed for modification
+- The artifact's behavior should be extendible without modifying the artifact
+- It's a failure, when simple extensions to the requirements force massive changes to the software
+- Separating responsibilities makes a clean architecture. Protect controller from changes in the presenters, those from the views etc. Using interfaces and datastores
+
+=========================================
+Liskov substitution principle
+=========================================
+- Using an interface makes the application be independent of which of the implementations of a function it uses.
+- Appllying this principle, avoids violating substitutability, which in order to fix it we pollute the code by adding if statements to cover special logic.
+- Ability to replace any instance of a parent class with an instances of one it's child classes without negative side effects
+
+
+=========================================
+Interface segregation principle
+=========================================
+- we shouldn't have an interface with multiple function that are unrelated, because changes to 1 of them needs to uneccesary recompile all of them
+- it is harmful to depend on modules that contain more that you need
+
+
+=========================================
+Dependency Inversion principle
+=========================================
+- Flexible systems are those that refer only to abstractions, not to concretions
+- We should avoid depending on concrete elements of our system
+- Changes to interfaces mean changes to concrete implementations, but not necessarily the otherway around. Thus interfaces are less volatile than implementations. And we should work hard to reduce the volatility of the interfaces.
+- We should be in favor of stable abstract interfaces
+Coding practises:
+- Don't refer to volatile concrete classes. Refer to interfaces.
+- Don't derive from volatitle concrete classes.(use inheritance with great care in statically typed languagues since it's strong dependency)
+- Don't override concrete functions. This way you inherit dependencies of the concrete functions you depend on.
+- Never mention the name of anything concrete and volatile.
