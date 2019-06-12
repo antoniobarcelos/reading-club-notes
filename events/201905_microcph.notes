@@ -1,0 +1,103 @@
+== MicroCPH ==
+
+Event about microservices architecture in CPH (2019-05-14 - 2019-05-15)
+
+-> Notes 
+- Flow, Microservice and Scale 
+    - Presentation: https://www.youtube.com/watch?v=kbATpl0LHOI
+    - Using the natural scaling law to systems
+    - Organizations as organism
+- Event Sourcing
+    - Presentation: https://www.youtube.com/watch?v=goknSHnTD4M
+    - Save the events happen instead of the result of the event 
+    - Projectors to process and consolidate the data to Presentation
+    - New stategies to resolve conflicts between concurrent calls
+    - Not everything has to be made as a Event Sourcing
+    - Understand de transaction boundaries and granularity
+    - Projector should not depends in other Projector data 
+    - Projector should not have multiple reasons to change 
+- Sagas
+    - Presentation: https://www.youtube.com/watch?v=cpdL73GsM5c
+    - Consitency between distributed transaction
+    - Sagas is state machine with good and the bad paths 
+    - If something get wrong, you have to rollback using compensating transactions
+    - If some step doesnt have a rollback should be put on the end of the process 
+    - ACD -> Atomicity, Consistency and Durability -> No isolation (different result depends on the order)
+    - Service have to update the database and send the message to the broker -> Event Sourcing 
+    - Choreography 
+        -> distributed
+        -> simple 
+        -> if it starts to get big, the saga will be distributed between a lot of components
+        -> easy leak the business between different components
+    - Orchestration 
+        -> centralized
+        -> send command and save to the database waiting the response and so on
+        -> reduce the coupling 
+        -> risk of smart sagas -> dumb services
+- Airbnb Migration to MS 
+    - Presentation: https://www.youtube.com/watch?v=-6j35f_adtQ
+    - SOA -> Layer of services -> Data service and business services 
+    - Migration comparing the result using the old and the new services
+    - Standardize Service Building, Framewotk and Observability
+    - Thrift IDL -> language who define the basics for the service (endpoint, libraries, rate limit, etc)
+        - https://thrift.apache.org/docs/idl 
+- Strategic Microservices Patterns
+    - Presentation: https://www.youtube.com/watch?v=ZZXMMnV3EoU (Only the first 15 minutes)
+    - DDD and Microservices are something that works well togheter
+    - MS has to be align with the domain
+        - It doesn't matter where you put boundary, it's about your domain, not if the service is big or not. 
+    - ! Challenge: how to group the functionalities !
+    - Event Storming
+        - Help to identify the domain
+        - Create a common language 
+        - Model the domain as timeline
+    - Using the detailed picture of the domain to find the boundaries
+    - Life cycle pipeline pattern 
+        - Example ->  Provisioning, activation and management
+        - Look to pivotal events -> events that people talk with a lot of emphasis
+    - Capabilities pattern
+        - Example -> Matching, extracting
+    - Phases x Capabilities? 
+        - Strategic design scoreboard (Value, Domain, Social, Technical and UX)
+- Micro Frontends
+    - Presentation: https://www.youtube.com/watch?v=wCHYILvM7kU
+    - Monolith 
+        -> Split Frontend and Backend 
+        -> Microservices on the backend and a huge frontend project
+    - Microservice
+        -> Split the backend services 
+        -> But the frontend stills a monolith 
+    - Microfrontend 
+        -> Split the frontend in small web components 
+        -> Frontend per service 
+        -> App Shell put all the thing togheter
+        -> Components versions
+- Service Mesh
+    - Presentation: https://www.youtube.com/watch?v=FTiFR0KR30Y
+    - A simple way to garantee the communication between microservices
+    - Handle retries, timeout, security, metrics, service discovery (dns) and so on
+    - Envoy was the example on the talk
+    - It's used as side car, so you service just talk with the localhost
+    - It has a central service that receive the service registration 
+    - ! Need to used in almost all the service !
+    - ! Could be replaced with a event-driven architecture ! 
+- Kubernetes/microservices has solved some problems creating others
+    - Presentation: https://www.youtube.com/watch?v=OCecs9pMN44
+    - Running all the environment on the local machine is not scalable when we work with microservice, so it need solutions that put your devstack into the cloud and allows you to debug and put the code you are working on.
+        - Telepresence
+        - Kubernetes Azure Dev Space
+- What 5 years of implementing microservices has taught me
+    - Presentation: https://www.youtube.com/watch?v=NONh6LUJLJ0
+    - Kind of contradict the airbnbs talk about using layered microservices based on SOA 
+    - MS as the Technical authority for given bounded context/business-capability
+    - Services x Microservice
+    - We can see services as bunch of microservices working togheter to delivery one unit of value
+        - For example, the Matching 2.0 is a service, but it is composed by decision-service, document-line-graph (all the microservices releated to this sub-service), and so on
+        - Yes, document-line-graph is a service composed by 3 microservices
+
+- The Presentation Videos: https://www.youtube.com/channel/UCn6EwBG-Rskj7nwYXGiEFvQ/videos
+- The Slides: 
+    *Observability and Product Release* -> https://www.slideshare.net/SnehaInguva/microcph-observability-and-product-release
+    *Micro Frontends* -> https://noti.st/naltatis/zQb2m5
+    *Airbnbs Great Migration* -> https://www.slideshare.net/JessicaTai3/microcph-2019-airbnbs-great-migration-building-services-at-scale
+    *Strategic Microservice Patterns* -> http://ntcoding.co.uk/speaking/talks/strategic-microservice-patterns/microcph-copenhagen-may-2019
