@@ -1,0 +1,45 @@
+======== Part V - Architecture ========
+
+=======================================
+Screaming architecture - Chapter 21
+=======================================
+Your architecture should scream/show the usecases of your application.
+Architectures are not about frameworks.
+Good architecture allow decisions about frameworks, databases and web servers to be delayed.
+Frameworks are just tools and we should prevent the framework from taking over our architecture.
+
+=======================================
+Clean architecture - Chapter 22
+=======================================
+Clean architecture:
+	Independent of frameworks
+	Testable (business rules tested without UI, db etc)
+	Independent of the UI
+	Independent of the database
+	Independent of any external agency
+Dependency rule
+	Source code dependencies must point only inward, toward higher-level policies
+	Data formats declared in an outer circle should not be used by an inner circle.
+Entities
+	Encapsulate enterprise-wide Critical business rules.
+	Can be a set of data structures and functions.
+	Can be used by many different applications in the enterprise
+	Least likely to change
+Usecases
+	Application-specific business rules.
+	Orchestrates the flow of data to and from entities and directs the entities to use the Critical business rules.
+	Changes in this layer shouldn't affect the entities
+Interface adapters
+	Convert data from the format most convenient for the usecases and entities, to format convinient to external dependencies and vice verca.
+Frameworks and drivers
+	It's where all the details go. Web, db etc.
+	Glue code.
+
+=======================================
+Presenters & humble objects - Chapter 23
+=======================================
+Humble object is a module that contains all the hard to test behaviors stripped down to their barest essence.
+The other module contains all the testable behaviors. 
+For example the View is hard to test, so it should be dead simple and the logic should be kept in the presenter which can be tested easier.
+Database Gateways: The Interface has methods for all the necessary operations (CRUD) the application needs and the implementation of the gateways belong to the db layer and is a humble object. Since it just uses SQL to access the data required.
+Mentions examples for data mappers, service listeners.
